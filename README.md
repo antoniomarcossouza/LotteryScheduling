@@ -41,4 +41,4 @@ int lottTransferTickets(Process *src, Process *dst, int tickets);
 
 Quaisquer funções auxiliares não podem ser externalizadas no arquivo de cabeçalho lottery.h. Identificadores, tipos, assinaturas de função, enfim, linhas já escritas de programa, não podem
 ser modificadas.\
-Quaisquer funções necessárias e não implementadas na API de processo ou na API de escalonador devem ser discutidas e solicitadas ao professor. O mesmo vale para possíveis erros detectados.\
+Quaisquer funções necessárias e não implementadas na API de processo ou na API de escalonador devem ser discutidas e solicitadas ao professor. O mesmo vale para possíveis erros detectados.
