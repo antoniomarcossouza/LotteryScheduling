@@ -15,6 +15,9 @@
 
 // Nome unico do algoritmo. Deve ter 4 caracteres.
 const char lottName[] = "LOTT";
+
+int slot;  // slot de Lottery
+
 //=====Funcoes Auxiliares=====
 
 //=====Funcoes da API=====
@@ -24,7 +27,34 @@ const char lottName[] = "LOTT";
 // Deve envolver a inicializacao de possiveis parametros gerais
 // Deve envolver o registro do algoritmo junto ao escalonador
 void lottInitSchedInfo() {
-    //...
+    SchedInfo *sched_info = malloc(sizeof(SchedInfo)); /* Alocando o espaço necessário
+                                                       para registrar o algoritmo
+                                                       de escalonamento */
+
+    strcpy(sched_info->name, lottName); /* Armazenando o nome do algoritmo
+                                         de loteria na struct de registro
+                                         de algoritmos de escalonamento */
+
+    sched_info->initParamsFn = lottInitSchedParams; /* Armazenando a funcao para inicializar
+                                                    os parametros de escalonamento de um
+                                                    processo na struct de registro
+                                                    de algoritmos de escalonamento */
+
+    sched_info->notifyProcStatusChangeFn = lottNotifyProcStatusChange; /* Armazenando a funcao que notifica
+                                                                       que um processo mudou de estado na
+                                                                       struct de registro de algoritmos
+                                                                       de escalonamento */
+
+    sched_info->scheduleFn = lottSchedule; /* Armazenando a funcao para decidir qual o
+                                           proximo processo a obter a CPU na struct
+                                           de registro de algoritmos de escalonamento */
+
+    sched_info->releaseParamsFn = lottReleaseParams; /* Armazenando a funcao para liberar
+                                                     os parametros de escalonemnto de um processo
+                                                     na struct de registro de algoritmos de
+                                                     escalonamento */
+
+    slot = schedRegisterScheduler(sched_info); /* Registra o algoritmo de Loteria */
 }
 
 // Inicializa os parametros de escalonamento de um processo p, chamada
