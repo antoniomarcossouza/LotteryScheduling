@@ -71,7 +71,43 @@ void lottNotifyProcStatusChange(Process *p) {
 
 // Retorna o proximo processo a obter a CPU, conforme o algortimo Lottery
 Process *lottSchedule(Process *plist) {
-    //...
+    int total_tickets = 0;
+
+    for (Process *p = plist; p != NULL; p = processGetNext(p)) { /* For na lista de processos para
+                                                                 contar o número total de tickets */
+
+        LotterySchedParams *sched_params = processGetSchedParams(p); /* Recebe os parâmetros do
+                                                                     algoritmo de loteria */
+
+        if (processGetStatus(p) != PROC_WAITING) {
+            total_tickets += sched_params->num_tickets; /* Se o processo não estiver esperando, os
+                                                        tickets são adicionados ao total de tickets */
+        }
+    }
+
+    int chosen_ticket = rand() % total_tickets; /* Gerando um número aleatório
+                                                entre zero e o total de ticket */
+
+    int growing_process_list = 0; 
+
+    for (Process *p = plist; p != NULL; p = processGetNext(p)) { /* For na lista de processos para
+                                                                 encontrar o processo cujo ticket foi 
+                                                                 sorteado */
+
+        LotterySchedParams *sched_params = processGetSchedParams(p); /* Recebe os parâmetros do
+                                                                     algoritmo de loteria */
+
+        if (processGetStatus(p) != PROC_WAITING) {
+            growing_process_list += sched_params->num_tickets;
+            if (chosen_ticket <= growing_process_list) { /* Conforme a lista análoga a
+                                                         'total_tickets' cresce o programa
+                                                         checa se o ticket escolhido está na lista */
+
+                return p; /* Retorna o próximo processo a receber a CPU */
+            }
+        }
+    }
+
     return NULL;
 }
 
