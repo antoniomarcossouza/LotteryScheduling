@@ -60,7 +60,7 @@ void lottInitSchedInfo() {
 // Inicializa os parametros de escalonamento de um processo p, chamada
 // normalmente quando o processo e' associado ao slot de Lottery
 void lottInitSchedParams(Process *p, void *params) {
-    //...
+    schedSetScheduler(p, params, slot);
 }
 
 // Recebe a notificação de que um processo sob gerência de Lottery mudou de estado
@@ -88,10 +88,10 @@ Process *lottSchedule(Process *plist) {
     int chosen_ticket = rand() % total_tickets; /* Gerando um número aleatório
                                                 entre zero e o total de ticket */
 
-    int growing_process_list = 0; 
+    int growing_process_list = 0;
 
     for (Process *p = plist; p != NULL; p = processGetNext(p)) { /* For na lista de processos para
-                                                                 encontrar o processo cujo ticket foi 
+                                                                 encontrar o processo cujo ticket foi
                                                                  sorteado */
 
         LotterySchedParams *sched_params = processGetSchedParams(p); /* Recebe os parâmetros do
