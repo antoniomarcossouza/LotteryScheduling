@@ -1,7 +1,7 @@
 /*
  *  lottery.c - Implementacao do algoritmo Lottery Scheduling e sua API
  *
- *  Autores: 
+ *  Autores:
  *      Antônio Marcos Souza Pereira (202065245AC)
  *      Larissa de Lima e Silva (201865171B)
  *  Projeto: Trabalho Pratico I - Sistemas Operacionais
@@ -118,26 +118,26 @@ Process *lottSchedule(Process *plist) {
 // Retorna o numero do slot ao qual o processo estava associado
 int lottReleaseParams(Process *p) {
     free(processGetSchedParams(p)); /*Libera memoria para os parametros associados ao processo p*/
-    processSetSchedParams(p,NULL); /*Seta para NULL os paramentros do processo p*/
-    return slot;/*Retorna o slot*/ 
+    processSetSchedParams(p, NULL); /*Seta para NULL os paramentros do processo p*/
+    return slot;    /*Retorna o slot*/
 }
 
 // Transfere certo numero de tickets do processo src para o processo dst.
 // Retorna o numero de tickets efetivamente transfeirdos (pode ser menos)
 int lottTransferTickets(Process *src, Process *dst, int tickets) {
-    int tickets_tranf; 
-    LotterySchedParams *lot_src = processGetSchedParams(src); /*Transfere o ponteiro do processo de origem para estrutura da Lottery */
-    LotterySchedParams *lot_dst = processGetSchedParams(dst); /*Transfere o ponteiro do processo de destino para estrutura da Lottery */
-    if(lot_src->num_tickets  >= tickets){ /*Se o numero de tickets do processo de origem e' maior que o numero de tickets a ser trocado*/ 
-        lot_dst->num_tickets += tickets; /*Processo de destino recebe os tickets*/
-        lot_src->num_tickets -= tickets;/*Retira os tickets da origem*/
-        tickets_tranf = tickets;/*Os tickets transferidos e' igual ao tickets passado na chamada*/
+    int tickets_tranf;
+    LotterySchedParams *lot_src = processGetSchedParams(src);   /*Transfere o ponteiro do processo de origem para estrutura da Lottery */
+    LotterySchedParams *lot_dst = processGetSchedParams(dst);   /*Transfere o ponteiro do processo de destino para estrutura da Lottery */
+
+    if (lot_src->num_tickets >= tickets) {  /*Se o numero de tickets do processo de origem e' maior que o numero de tickets a ser trocado*/
+        lot_dst->num_tickets += tickets;    /*Processo de destino recebe os tickets*/
+        lot_src->num_tickets -= tickets;    /*Retira os tickets da origem*/
+        tickets_tranf = tickets;    /*Os tickets transferidos e' igual ao tickets passado na chamada*/
+    } else {    /*Se o numero de tickets do processo de origem e' menor que o numero de tickets a ser trocado*/
+        lot_dst->num_tickets += lot_src->num_tickets;   /*Processo de destino recebe os tickets que o Processo de origem tem*/
+        tickets_tranf = lot_src->num_tickets;   /*Os tickets transferidos e' igual ao tickets que o origem possui*/
+        lot_src->num_tickets = 0;   /*Retira os tickets da origem, fica zero pois todos os tickets de src foram para dst*/
     }
-    else{ /*Se o numero de tickets do processo de origem e' menor que o numero de tickets a ser trocado*/
-       lot_dst->num_tickets += lot_src->num_tickets;/*Processo de destino recebe os tickets que o Processo de origem tem*/
-       tickets_tranf = lot_src->num_tickets;/*Os tickets transferidos e' igual ao tickets que o origem possui*/
-       lot_src->num_tickets = 0;/*Retira os tickets da origem, fica zero pois todos os tickets de src foram para dst*/
-    }
-    
+
     return tickets_tranf;
 }
