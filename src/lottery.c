@@ -2,8 +2,8 @@
  *  lottery.c - Implementacao do algoritmo Lottery Scheduling e sua API
  *
  *  Autores: 
- *  Antônio Marcos Souza Pereira (202065245AC)
- *  Larissa de Lima e Silva (201865171B)
+ *      Antônio Marcos Souza Pereira (202065245AC)
+ *      Larissa de Lima e Silva (201865171B)
  *  Projeto: Trabalho Pratico I - Sistemas Operacionais
  *  Organizacao: Universidade Federal de Juiz de Fora
  *  Departamento: Dep. Ciencia da Computacao
