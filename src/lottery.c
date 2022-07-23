@@ -117,7 +117,6 @@ Process *lottSchedule(Process *plist) {
 // normalmente quando o processo e' desassociado do slot de Lottery
 // Retorna o numero do slot ao qual o processo estava associado
 int lottReleaseParams(Process *p) {
-    //...
     free(processGetSchedParams(p)); /*Libera memoria para os parametros associados ao processo p*/
     processSetSchedParams(p,NULL); /*Seta para NULL os paramentros do processo p*/
     return slot;/*Retorna o slot*/ 
@@ -126,7 +125,6 @@ int lottReleaseParams(Process *p) {
 // Transfere certo numero de tickets do processo src para o processo dst.
 // Retorna o numero de tickets efetivamente transfeirdos (pode ser menos)
 int lottTransferTickets(Process *src, Process *dst, int tickets) {
-    //...
     int tickets_tranf; 
     LotterySchedParams *lot_src = processGetSchedParams(src); /*Transfere o ponteiro do processo de origem para estrutura da Lottery */
     LotterySchedParams *lot_dst = processGetSchedParams(dst); /*Transfere o ponteiro do processo de destino para estrutura da Lottery */
