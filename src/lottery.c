@@ -1,7 +1,9 @@
 /*
  *  lottery.c - Implementacao do algoritmo Lottery Scheduling e sua API
  *
- *  Autores: SUPER_PROGRAMADORES_C
+ *  Autores: 
+ *  Antônio Marcos Souza Pereira (202065245AC)
+ *  Larissa de Lima e Silva (201865171B)
  *  Projeto: Trabalho Pratico I - Sistemas Operacionais
  *  Organizacao: Universidade Federal de Juiz de Fora
  *  Departamento: Dep. Ciencia da Computacao
@@ -116,7 +118,9 @@ Process *lottSchedule(Process *plist) {
 // Retorna o numero do slot ao qual o processo estava associado
 int lottReleaseParams(Process *p) {
     //...
-    return 0;
+    free(processGetSchedParams(p)); /*Libera memoria para os parametros associados ao processo p*/
+    processSetSchedParams(p,NULL); /*Seta para NULL os paramentros do processo p*/
+    return slot;/*Retorna o slot*/ 
 }
 
 // Transfere certo numero de tickets do processo src para o processo dst.
