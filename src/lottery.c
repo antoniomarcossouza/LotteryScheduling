@@ -4,6 +4,7 @@
  *  Autores:
  *      Antônio Marcos Souza Pereira (202065245AC)
  *      Larissa de Lima e Silva (201865171B)
+ *      Luciana Nascimento Santana Prachedes (202065566C)
  *  Projeto: Trabalho Pratico I - Sistemas Operacionais
  *  Organizacao: Universidade Federal de Juiz de Fora
  *  Departamento: Dep. Ciencia da Computacao
@@ -68,7 +69,7 @@ void lottInitSchedParams(Process *p, void *params) {
 // Recebe a notificação de que um processo sob gerência de Lottery mudou de estado
 // Deve realizar qualquer atualização de dados da Loteria necessária quando um processo muda de estado
 void lottNotifyProcStatusChange(Process *p) {
-    //...
+    processSetSchedSlot(lottSchedule(p), processGetSchedSlot(p));
 }
 
 // Retorna o proximo processo a obter a CPU, conforme o algortimo Lottery
