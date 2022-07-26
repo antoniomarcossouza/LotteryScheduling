@@ -69,7 +69,7 @@ void lottInitSchedParams(Process *p, void *params) {
 // Recebe a notificação de que um processo sob gerência de Lottery mudou de estado
 // Deve realizar qualquer atualização de dados da Loteria necessária quando um processo muda de estado
 void lottNotifyProcStatusChange(Process *p) {
-    processSetSchedSlot(lottSchedule(p), processGetSchedSlot(p));
+    processSetSchedSlot(lottSchedule(p), slot);
 }
 
 // Retorna o proximo processo a obter a CPU, conforme o algortimo Lottery
